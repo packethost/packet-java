@@ -1,0 +1,19 @@
+# packet-java .gitignore list
+build
+.gradle
+bin
+classes
+target
+
+# Eclipse
+.classpath
+.project
+.settings
+
+# Mac
+.DS_Store
+
+# project
+*.class
+*.jar
+
