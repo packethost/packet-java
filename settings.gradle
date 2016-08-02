@@ -1,0 +1,8 @@
+/*
+ * The settings file is used to specify which projects to include in your build
+ * 
+ * @author Jeevanandam M. (https://github.com/jeevatkm)
+ * @date Jul 30, 2016
+ */
+
+rootProject.name = 'packet-java'

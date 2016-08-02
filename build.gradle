@@ -1,0 +1,52 @@
+/*
+ * @author Jeevanandam M. (https://github.com/jeevatkm)
+ * @date Jul 30, 2016
+ */
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+group = 'net.packet'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = 1.7
+
+// Project dependencies
+dependencies {
+    compile ('org.apache.httpcomponents:httpclient:4.5.2') {
+        exclude group:'commons-logging'
+    }
+    
+    compile (
+        'org.apache.commons:commons-lang3:3.4',
+        'com.google.code.gson:gson:2.7',
+        'org.slf4j:slf4j-api:1.7.21',
+        'org.slf4j:jcl-over-slf4j:1.7.21',
+    )
+
+    // tests
+    testCompile 'junit:junit:4.+'
+}
+
+// Project tasks
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+// Artifacts
+jar {
+    baseName = 'java-client'
+}
+archivesBaseName = jar.baseName
+artifacts {
+    archives javadocJar, sourcesJar
+}
