@@ -39,9 +39,9 @@ public enum IpFamily {
   }
 
   public static IpFamily fromValue(int value) {
-    for (IpFamily bc : IpFamily.values()) {
-      if (bc.value == value) {
-        return bc;
+    for (IpFamily ip : IpFamily.values()) {
+      if (ip.value == value) {
+        return ip;
       }
     }
 

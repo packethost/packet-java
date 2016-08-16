@@ -6,13 +6,17 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+ext {
+    javaVersion = 1.7
+}
+
 repositories {
     mavenCentral()
 }
 
 group = 'net.packet'
 version = '1.0.0-SNAPSHOT'
-sourceCompatibility = 1.7
+sourceCompatibility = javaVersion
 
 // Project dependencies
 dependencies {
@@ -49,4 +53,16 @@ jar {
 archivesBaseName = jar.baseName
 artifacts {
     archives javadocJar, sourcesJar
+}
+
+// Eclipse JDK selection
+afterEvaluate {
+    eclipse.classpath {
+        downloadSources = true
+        def containerPrefix = 'org.eclipse.jdt.launching.JRE_CONTAINER'
+        containers.removeAll {
+            it.startsWith(containerPrefix)
+        }
+        containers "${containerPrefix}/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-${javaVersion}"
+    }
 }
