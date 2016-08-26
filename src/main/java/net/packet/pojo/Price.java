@@ -17,22 +17,20 @@ import java.math.BigDecimal;
  */
 public class Price extends AbstractBase {
 
-  private BigDecimal hourly;
+  private BigDecimal hour;
 
   /**
-   * @return the hourly
+   * @return the hour
    */
-  public BigDecimal getHourly() {
-    return hourly;
+  public BigDecimal getHour() {
+    return hour;
   }
 
   /**
-   * @param hourly the hourly to set
+   * @param hour the hour to set
    */
-  public void setHourly(BigDecimal hourly) {
-    this.hourly = hourly;
+  public void setHour(BigDecimal hour) {
+    this.hour = hour;
   }
 
 }
-
-

@@ -15,15 +15,31 @@ package net.packet.pojo;
  */
 public class Meta extends AbstractBase {
 
+  private Integer total;
+
   private Link first;
 
-  private String previous;
+  private Link previous;
 
   private Link self;
 
-  private String next;
+  private Link next;
 
   private Link last;
+
+  /**
+   * @return the total
+   */
+  public Integer getTotal() {
+    return total;
+  }
+
+  /**
+   * @param total the total to set
+   */
+  public void setTotal(Integer total) {
+    this.total = total;
+  }
 
   /**
    * @return the first
@@ -42,14 +58,14 @@ public class Meta extends AbstractBase {
   /**
    * @return the previous
    */
-  public String getPrevious() {
+  public Link getPrevious() {
     return previous;
   }
 
   /**
    * @param previous the previous to set
    */
-  public void setPrevious(String previous) {
+  public void setPrevious(Link previous) {
     this.previous = previous;
   }
 
@@ -70,14 +86,14 @@ public class Meta extends AbstractBase {
   /**
    * @return the next
    */
-  public String getNext() {
+  public Link getNext() {
     return next;
   }
 
   /**
    * @param next the next to set
    */
-  public void setNext(String next) {
+  public void setNext(Link next) {
     this.next = next;
   }
 
@@ -96,5 +112,3 @@ public class Meta extends AbstractBase {
   }
 
 }
-
-

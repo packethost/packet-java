@@ -8,6 +8,10 @@
 package net.packet;
 
 import net.packet.http.HttpMethod;
+import net.packet.pojo.Facilities;
+import net.packet.pojo.OperatingSystems;
+import net.packet.pojo.Plans;
+import net.packet.pojo.Project;
 import net.packet.pojo.Projects;
 
 /**
@@ -18,7 +22,29 @@ import net.packet.pojo.Projects;
  */
 public enum Endpoint {
 
-  PROJECTS("/projects", "", HttpMethod.GET, Projects.class);
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Facility methods
+  // ___________________________________
+  FACILITIES("/facilities", "", HttpMethod.GET, Facilities.class),
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Operating systems methods
+  // ___________________________________
+  OPERATING_SYSTEMS("/operating-systems", "", HttpMethod.GET, OperatingSystems.class),
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Plans methods
+  // ___________________________________
+  PLANS("/plans", "", HttpMethod.GET, Plans.class),
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /projects endpoint(s)
+  // ___________________________________
+  PROJECTS("/projects", "", HttpMethod.GET, Projects.class), 
+  GET_PROJECT("/projects/%s", "", HttpMethod.GET, Project.class), 
+  CREATE_PROJECT("/projects", "", HttpMethod.POST, Project.class), 
+  UPDATE_PROJECT("/projects/%s", "", HttpMethod.PATCH, Project.class), 
+  DELET_PROJECT("/projects/%s", "", HttpMethod.DELETE, Boolean.class);
 
   private String path;
 

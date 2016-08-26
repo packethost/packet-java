@@ -14,5 +14,5 @@ package net.packet.http;
  * @since v1.0.0
  */
 public enum HttpMethod {
-  GET, POST, PUT, DELETE;
+  GET, POST, PUT, PATCH, DELETE;
 }

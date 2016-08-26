@@ -7,6 +7,10 @@
 
 package net.packet.pojo;
 
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Describes packet device opertaing system details.
  * 
@@ -22,6 +26,9 @@ public class OperatingSystem extends AbstractBase {
   private String distro;
 
   private String version;
+
+  @SerializedName("provisionable_on")
+  private List<String> provisionableOn;
 
   /**
    * @return the slug
@@ -79,6 +86,18 @@ public class OperatingSystem extends AbstractBase {
     this.version = version;
   }
 
+  /**
+   * @return the provisionableOn
+   */
+  public List<String> getProvisionableOn() {
+    return provisionableOn;
+  }
+
+  /**
+   * @param provisionableOn the provisionableOn to set
+   */
+  public void setProvisionableOn(List<String> provisionableOn) {
+    this.provisionableOn = provisionableOn;
+  }
+
 }
-
-

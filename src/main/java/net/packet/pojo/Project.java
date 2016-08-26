@@ -9,7 +9,9 @@ package net.packet.pojo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -22,7 +24,11 @@ public class Project extends AbstractBase {
 
   private String id;
 
+  @Expose
   private String name;
+
+  @Expose
+  private String paymentMethodId;
 
   @SerializedName("created_at")
   private Date createdAt;
@@ -30,7 +36,8 @@ public class Project extends AbstractBase {
   @SerializedName("updated_at")
   private Date updatedAt;
 
-  // TODO max_devices - since data type is unclear
+  @SerializedName("max_devices")
+  private Map<String, Integer> maxDevices;
 
   private List<Link> members;
 
@@ -49,6 +56,36 @@ public class Project extends AbstractBase {
   // TODO volumes
 
   private String href;
+
+  /**
+   * Constructor
+   */
+  public Project() {
+    // Default Constructor
+  }
+
+  /**
+   * Convenient Constructor for create project
+   * 
+   * @param name of the new project
+   * @param paymentMethodId for the new project
+   */
+  public Project(String name, String paymentMethodId) {
+    this(null, name, paymentMethodId);
+  }
+  
+  /**
+   * Convenient Constructor for create project
+   * 
+   * @param id of the project
+   * @param name of the new project
+   * @param paymentMethodId for the new project
+   */
+  public Project(String id, String name, String paymentMethodId) {
+    this.id = id;
+    this.name = name;
+    this.paymentMethodId = paymentMethodId;
+  }
 
   /**
    * @return the id
@@ -79,6 +116,20 @@ public class Project extends AbstractBase {
   }
 
   /**
+   * @return the paymentMethodId
+   */
+  public String getPaymentMethodId() {
+    return paymentMethodId;
+  }
+
+  /**
+   * @param paymentMethodId the paymentMethodId to set
+   */
+  public void setPaymentMethodId(String paymentMethodId) {
+    this.paymentMethodId = paymentMethodId;
+  }
+
+  /**
    * @return the createdAt
    */
   public Date getCreatedAt() {
@@ -104,6 +155,20 @@ public class Project extends AbstractBase {
    */
   public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  /**
+   * @return the maxDevices
+   */
+  public Map<String, Integer> getMaxDevices() {
+    return maxDevices;
+  }
+
+  /**
+   * @param maxDevices the maxDevices to set
+   */
+  public void setMaxDevices(Map<String, Integer> maxDevices) {
+    this.maxDevices = maxDevices;
   }
 
   /**
@@ -191,5 +256,3 @@ public class Project extends AbstractBase {
   }
 
 }
-
-

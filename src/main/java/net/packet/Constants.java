@@ -14,6 +14,8 @@ package net.packet;
  * @since v1.0.0
  */
 public interface Constants {
+  
+  String UTF_8 = "utf-8";
 
   String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssX";
 

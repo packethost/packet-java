@@ -7,6 +7,10 @@
 
 package net.packet.pojo;
 
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Packet service plan details
  * 
@@ -28,6 +32,9 @@ public class Plan extends AbstractBase {
   private String line;
 
   private Spec specs;
+
+  @SerializedName("available_in")
+  private List<Link> availableIn;
 
   /**
    * @return the id
@@ -128,5 +135,3 @@ public class Plan extends AbstractBase {
   }
 
 }
-
-
