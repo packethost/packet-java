@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
+import net.packet.ActionType;
 import net.packet.Constants;
 import net.packet.Endpoint;
 import net.packet.Packet;
@@ -43,12 +44,19 @@ import net.packet.exception.HttpErrorException;
 import net.packet.exception.PacketException;
 import net.packet.http.HttpHeader;
 import net.packet.http.methods.HttpDelete;
+import net.packet.pojo.Action;
+import net.packet.pojo.Device;
+import net.packet.pojo.Devices;
 import net.packet.pojo.Error;
 import net.packet.pojo.Facilities;
+import net.packet.pojo.IpAddress;
+import net.packet.pojo.IpAddresses;
 import net.packet.pojo.OperatingSystems;
 import net.packet.pojo.Plans;
 import net.packet.pojo.Project;
 import net.packet.pojo.Projects;
+import net.packet.pojo.ReserveIpAddress;
+import net.packet.serializer.DeviceSerializer;
 import net.packet.serializer.ProjectSerializer;
 
 /**
@@ -217,8 +225,178 @@ public final class PacketClient implements Packet, Constants {
   public Boolean deleteProject(String projectId) throws PacketException {
     checkEmptyAndThrowError(projectId, "projectId is required");
 
-    Request request = new Request(Endpoint.DELET_PROJECT)
+    Request request = new Request(Endpoint.DELETE_PROJECT)
         .addPathParmas(new Object[] {projectId});
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Devices methods
+  // ___________________________________
+
+  @Override
+  public Devices getDevices(String projectId, Integer pageNo, Integer perPage)
+      throws PacketException {
+    checkEmptyAndThrowError(projectId, "projectId is required");
+    checkNullAndThrowError(pageNo, "Page no is required");
+
+    Request request = new Request(Endpoint.DEVICES)
+        .addPathParmas(new Object[] {projectId})
+        .page(pageNo)
+        .perPage(perPage);
+
+    return (Devices) executeRequest(request).getData();
+  }
+
+  @Override
+  public Device getDevice(String deviceId) throws PacketException {
+    checkEmptyAndThrowError(deviceId, "deviceId is required");
+
+    Request request = new Request(Endpoint.GET_DEVICE)
+        .addPathParmas(new Object[] {deviceId});
+
+    return (Device) executeRequest(request).getData();
+  }
+
+  @Override
+  public Device createDevice(String projectId, Device device) throws PacketException {
+    checkEmptyAndThrowError(projectId, "projectId is required");
+    if (null == device
+        || null == device.getPlan()
+        || null == device.getBillingCycle()
+        || null == device.getFacility()
+        || null == device.getOperatingSystem()
+        || StringUtils.isBlank(device.getHostname())
+        || StringUtils.isBlank(device.getPlan().getSlug())
+        || StringUtils.isBlank(device.getFacility().getCode())
+        || StringUtils.isBlank(device.getOperatingSystem().getSlug())) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Hostname, Plan, BillingCycle, Facility, OperatingSystem] for create device.");
+    }
+
+    Request request = new Request(Endpoint.CREATE_DEVICE)
+        .addPathParmas(new Object[] {projectId})
+        .body(device);
+
+    return (Device) executeRequest(request).getData();
+  }
+
+  @Override
+  public Device updateDevice(Device device) throws PacketException {
+    if (null == device || StringUtils.isBlank(device.getId())) {
+      throw new IllegalArgumentException("Missing required parameters [Id] for update device.");
+    }
+
+    Request request = new Request(Endpoint.UPDATE_DEVICE)
+        .addPathParmas(new Object[] {device.getId()})
+        .body(device);
+
+    return (Device) executeRequest(request).getData();
+  }
+
+  @Override
+  public Boolean deleteDevice(String deviceId) throws PacketException {
+    checkEmptyAndThrowError(deviceId, "deviceId is required");
+
+    Request request = new Request(Endpoint.DELETE_DEVICE)
+        .addPathParmas(new Object[] {deviceId});
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  @Override
+  public Boolean powerOnDevice(String deviceId) throws PacketException {
+    checkEmptyAndThrowError(deviceId, "deviceId is required");
+
+    Request request = new Request(Endpoint.DEVICE_ACTIONS)
+        .addPathParmas(new Object[] {deviceId})
+        .body(new Action(ActionType.POWER_ON));
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  @Override
+  public Boolean powerOffDevice(String deviceId) throws PacketException {
+    checkEmptyAndThrowError(deviceId, "deviceId is required");
+
+    Request request = new Request(Endpoint.DEVICE_ACTIONS)
+        .addPathParmas(new Object[] {deviceId})
+        .body(new Action(ActionType.POWER_OFF));
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  @Override
+  public Boolean rebootDevice(String deviceId) throws PacketException {
+    checkEmptyAndThrowError(deviceId, "deviceId is required");
+
+    Request request = new Request(Endpoint.DEVICE_ACTIONS)
+        .addPathParmas(new Object[] {deviceId})
+        .body(new Action(ActionType.REBOOT));
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  @Override
+  public Boolean rescueDevice(String deviceId) throws PacketException {
+    checkEmptyAndThrowError(deviceId, "deviceId is required");
+
+    Request request = new Request(Endpoint.DEVICE_ACTIONS)
+        .addPathParmas(new Object[] {deviceId})
+        .body(new Action(ActionType.RESCUE));
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // IP Address methods
+  // ___________________________________
+
+  @Override
+  public IpAddresses getIpAddresses(String projectId) throws PacketException {
+    checkEmptyAndThrowError(projectId, "projectId is required");
+
+    Request request = new Request(Endpoint.IPS)
+        .addPathParmas(new Object[] {projectId});
+
+    return (IpAddresses) executeRequest(request).getData();
+  }
+
+  @Override
+  public Boolean reserveIpAddress(String projectId, ReserveIpAddress reserveIpAddress)
+      throws PacketException {
+    checkEmptyAndThrowError(projectId, "projectId is required");
+    if (null == reserveIpAddress
+        || StringUtils.isBlank(reserveIpAddress.getType())
+        || null == reserveIpAddress.getQuantity()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [IP Address type, Quantity] for IP address reservation.");
+    }
+
+    Request request = new Request(Endpoint.RESERVE_IPS)
+        .addPathParmas(new Object[] {projectId})
+        .body(reserveIpAddress);
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  @Override
+  public IpAddress getIpAddress(String ipAddressId) throws PacketException {
+    checkEmptyAndThrowError(ipAddressId, "ipAddressId is required");
+
+    Request request = new Request(Endpoint.GET_IP)
+        .addPathParmas(new Object[] {ipAddressId});
+
+    return (IpAddress) executeRequest(request).getData();
+  }
+
+  @Override
+  public Boolean deleteIpAddress(String ipAddressId) throws PacketException {
+    checkEmptyAndThrowError(ipAddressId, "ipAddressId is required");
+
+    Request request = new Request(Endpoint.DELETE_IP)
+        .addPathParmas(new Object[] {ipAddressId});
 
     return executeRequest(request).isRequestSuccess();
   }
@@ -357,12 +535,10 @@ public final class PacketClient implements Packet, Constants {
     String responseString = StringUtils.EMPTY;
 
     int statusCode = httpResponse.getStatusLine().getStatusCode();
-    if (HttpStatus.SC_OK == statusCode
-        || HttpStatus.SC_CREATED == statusCode
-        || HttpStatus.SC_ACCEPTED == statusCode) {
+    if (HttpStatus.SC_OK == statusCode || HttpStatus.SC_CREATED == statusCode) {
       responseString = httpResponseToString(httpResponse);
-    } else if (HttpStatus.SC_NO_CONTENT == statusCode) {
-      log.info("here no content");
+    } else if (HttpStatus.SC_ACCEPTED == statusCode || HttpStatus.SC_NO_CONTENT == statusCode) {
+      log.debug("202 Accepted or 204 No content");
     }
 
     if (statusCode >= 400 && statusCode < 510) {
@@ -385,6 +561,7 @@ public final class PacketClient implements Packet, Constants {
     this.serializer = new GsonBuilder()
         .setDateFormat(DATE_FORMAT)
         .registerTypeAdapter(Project.class, new ProjectSerializer())
+        .registerTypeAdapter(Device.class, new DeviceSerializer())
         .excludeFieldsWithoutExposeAnnotation()
         .create();
 

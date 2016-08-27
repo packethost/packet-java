@@ -37,6 +37,20 @@ public class Plan extends AbstractBase {
   private List<Link> availableIn;
 
   /**
+   * Constructor
+   */
+  public Plan() {
+    // Default Constructor
+  }
+
+  /**
+   * Constructor
+   */
+  public Plan(String slug) {
+    this.slug = slug;
+  }
+
+  /**
    * @return the id
    */
   public String getId() {

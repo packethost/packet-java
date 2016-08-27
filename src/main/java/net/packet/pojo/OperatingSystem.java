@@ -31,6 +31,20 @@ public class OperatingSystem extends AbstractBase {
   private List<String> provisionableOn;
 
   /**
+   * Constructor
+   */
+  public OperatingSystem() {
+    // Default Constructor
+  }
+
+  /**
+   * Constructor
+   */
+  public OperatingSystem(String slug) {
+    this.slug = slug;
+  }
+
+  /**
    * @return the slug
    */
   public String getSlug() {

@@ -30,7 +30,9 @@ public class ProjectSerializer implements JsonSerializer<Project> {
   public JsonElement serialize(Project src, Type typeOfSrc, JsonSerializationContext context) {
     final JsonObject jsonObject = new JsonObject();
 
-    jsonObject.addProperty("name", src.getName());
+    if (StringUtils.isNotBlank(src.getName())) {
+      jsonObject.addProperty("name", src.getName());
+    }
 
     if (StringUtils.isNotBlank(src.getPaymentMethodId())) {
       jsonObject.addProperty("payment_method", src.getPaymentMethodId());

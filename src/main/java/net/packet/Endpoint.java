@@ -8,7 +8,11 @@
 package net.packet;
 
 import net.packet.http.HttpMethod;
+import net.packet.pojo.Device;
+import net.packet.pojo.Devices;
 import net.packet.pojo.Facilities;
+import net.packet.pojo.IpAddress;
+import net.packet.pojo.IpAddresses;
 import net.packet.pojo.OperatingSystems;
 import net.packet.pojo.Plans;
 import net.packet.pojo.Project;
@@ -44,7 +48,38 @@ public enum Endpoint {
   GET_PROJECT("/projects/%s", "", HttpMethod.GET, Project.class), 
   CREATE_PROJECT("/projects", "", HttpMethod.POST, Project.class), 
   UPDATE_PROJECT("/projects/%s", "", HttpMethod.PATCH, Project.class), 
-  DELET_PROJECT("/projects/%s", "", HttpMethod.DELETE, Boolean.class);
+  DELETE_PROJECT("/projects/%s", "", HttpMethod.DELETE, Boolean.class),
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /projects/{id}/devices
+  // ___________________________________
+  DEVICES("/projects/%s/devices", "", HttpMethod.GET, Devices.class),
+  CREATE_DEVICE("/projects/%s/devices", "", HttpMethod.POST, Device.class),
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /devices endpoint(s)
+  // ___________________________________
+  GET_DEVICE("/devices/%s", "", HttpMethod.GET, Device.class),  
+  UPDATE_DEVICE("/devices/%s", "", HttpMethod.PATCH, Device.class), 
+  DELETE_DEVICE("/devices/%s", "", HttpMethod.DELETE, Boolean.class),
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /devices/{id}/actions endpoint(s)
+  // ___________________________________
+  DEVICE_ACTIONS("/devices/%s/actions", "", HttpMethod.POST, Boolean.class),
+  
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /projects/{id}/devices
+  // ___________________________________
+  IPS("/projects/%s/ips", "", HttpMethod.GET, IpAddresses.class),
+  RESERVE_IPS("/projects/%s/ips", "", HttpMethod.POST, Boolean.class),
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /ips endpoint(s)
+  // ___________________________________
+  GET_IP("/ips/%s", "", HttpMethod.GET, IpAddress.class),
+  DELETE_IP("/ips/%s", "", HttpMethod.DELETE, Boolean.class);
 
   private String path;
 

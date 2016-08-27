@@ -28,6 +28,20 @@ public class Facility extends AbstractBase {
   private List<String> features;
 
   /**
+   * Constructor
+   */
+  public Facility() {
+    // Default Constructor
+  }
+
+  /**
+   * Constructor
+   */
+  public Facility(String code) {
+    this.code = code;
+  }
+
+  /**
    * @return the id
    */
   public String getId() {

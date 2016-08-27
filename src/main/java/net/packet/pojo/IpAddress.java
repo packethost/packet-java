@@ -7,6 +7,8 @@
 
 package net.packet.pojo;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 import net.packet.IpFamily;
@@ -25,6 +27,8 @@ public class IpAddress extends AbstractBase {
 
   private String network;
 
+  private String gateway;
+
   @SerializedName("address_family")
   private IpFamily family;
 
@@ -34,6 +38,15 @@ public class IpAddress extends AbstractBase {
   private boolean availablePublic;
 
   private int cidr;
+
+  private Boolean management;
+
+  private Boolean manageable;
+
+  @SerializedName("assigned_to")
+  private Link assignedTo;
+
+  private List<Link> assignments;
 
   private String href;
 
@@ -77,6 +90,20 @@ public class IpAddress extends AbstractBase {
    */
   public void setNetwork(String network) {
     this.network = network;
+  }
+
+  /**
+   * @return the gateway
+   */
+  public String getGateway() {
+    return gateway;
+  }
+
+  /**
+   * @param gateway the gateway to set
+   */
+  public void setGateway(String gateway) {
+    this.gateway = gateway;
   }
 
   /**
@@ -136,6 +163,62 @@ public class IpAddress extends AbstractBase {
   }
 
   /**
+   * @return the management
+   */
+  public Boolean isManagement() {
+    return management;
+  }
+
+  /**
+   * @param management the management to set
+   */
+  public void setManagement(Boolean management) {
+    this.management = management;
+  }
+
+  /**
+   * @return the manageable
+   */
+  public Boolean isManageable() {
+    return manageable;
+  }
+
+  /**
+   * @param manageable the manageable to set
+   */
+  public void setManageable(Boolean manageable) {
+    this.manageable = manageable;
+  }
+
+  /**
+   * @return the assignedTo
+   */
+  public Link getAssignedTo() {
+    return assignedTo;
+  }
+
+  /**
+   * @param assignedTo the assignedTo to set
+   */
+  public void setAssignedTo(Link assignedTo) {
+    this.assignedTo = assignedTo;
+  }
+
+  /**
+   * @return the assignments
+   */
+  public List<Link> getAssignments() {
+    return assignments;
+  }
+
+  /**
+   * @param assignments the assignments to set
+   */
+  public void setAssignments(List<Link> assignments) {
+    this.assignments = assignments;
+  }
+
+  /**
    * @return the href
    */
   public String getHref() {
@@ -150,5 +233,3 @@ public class IpAddress extends AbstractBase {
   }
 
 }
-
-

@@ -13,28 +13,28 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Describes Resource status
+ * Packet Device Action types enum.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
  */
-public enum State {
+public enum ActionType {
 
-  @SerializedName("active") 
-  ACTIVE("active"),
+  @SerializedName("power_on") 
+  POWER_ON("power_on"),
   
-  @SerializedName("inactive") 
-  INACTIVE("inactive"),
+  @SerializedName("power_off") 
+  POWER_OFF("power_off"),
   
-  @SerializedName("queued")
-  QUEUED("queued"),
+  @SerializedName("reboot")
+  REBOOT("reboot"),
   
-  @SerializedName("provisioning")
-  PROVISIONING("provisioning");
+  @SerializedName("rescue")
+  RESCUE("rescue");
 
   private String value;
 
-  private State(String value) {
+  private ActionType(String value) {
     this.value = value;
   }
 
@@ -47,14 +47,14 @@ public enum State {
     return this.value;
   }
 
-  public static State fromValue(String value) {
+  public static ActionType fromValue(String value) {
     if (StringUtils.isBlank(value)) {
       throw new IllegalArgumentException("Value cannot be null or empty!");
     }
 
-    for (State s : State.values()) {
-      if (value.equalsIgnoreCase(s.value)) {
-        return s;
+    for (ActionType at : ActionType.values()) {
+      if (value.equalsIgnoreCase(at.value)) {
+        return at;
       }
     }
 

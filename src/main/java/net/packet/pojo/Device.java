@@ -7,13 +7,15 @@
 
 package net.packet.pojo;
 
-import java.lang.Thread.State;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import net.packet.BillingCycle;
+import net.packet.State;
 
 /**
  * Devices are the heart of the Packet ecosystem. It represents the cloud system.
@@ -25,28 +27,47 @@ public class Device extends AbstractBase {
 
   private String id;
 
-  private Link plan;
+  @SerializedName("short_id")
+  private String shortId;
 
   @SerializedName("billing_cycle")
   private BillingCycle billingCycle;
 
   private String hostname;
 
+  private String description;
+
   private State state;
 
-  private boolean locked;
+  private String user;
+
+  private String iqn;
+
+  private Boolean locked;
+
+  @SerializedName("bonding_mode")
+  private Integer bondingMode;
 
   private String userdata;
 
   private List<String> tags;
 
   @SerializedName("operating_system")
-  private OperatingSystem OS;
+  private OperatingSystem operatingSystem;
+
+  private Facility facility;
 
   @SerializedName("ip_addresses")
   private List<IpAddress> ipAddress;
 
+  private Plan plan;
+
   private Link project;
+
+  @SerializedName("project_lite")
+  private Link projectLite;
+
+  // TODO volumes
 
   @SerializedName("created_at")
   private Date createdAt;
@@ -55,6 +76,42 @@ public class Device extends AbstractBase {
   private Date updatedAt;
 
   private String href;
+
+  @Expose(serialize = true, deserialize = false)
+  private Map<String, String> features;
+
+  @SerializedName("provisioning_percentage")
+  private double provisioningPercentage;
+
+  @SerializedName("root_password")
+  private String rootPassword;
+
+  // TODO provisioning events
+
+  /**
+   * Constructor
+   */
+  public Device() {
+    // Default Constructor
+  }
+
+  /**
+   * Constructor for initializing mandatory fields for create device
+   * 
+   * @param hostname name of the host
+   * @param plan is service plan
+   * @param billingCycle billing mode
+   * @param operatingSystem image slug
+   * @param facility is data center code
+   */
+  public Device(String hostname, Plan plan, BillingCycle billingCycle,
+      OperatingSystem operatingSystem, Facility facility) {
+    this.hostname = hostname;
+    this.plan = plan;
+    this.billingCycle = billingCycle;
+    this.operatingSystem = operatingSystem;
+    this.facility = facility;
+  }
 
   /**
    * @return the id
@@ -71,17 +128,17 @@ public class Device extends AbstractBase {
   }
 
   /**
-   * @return the plan
+   * @return the shortId
    */
-  public Link getPlan() {
-    return plan;
+  public String getShortId() {
+    return shortId;
   }
 
   /**
-   * @param plan the plan to set
+   * @param shortId the shortId to set
    */
-  public void setPlan(Link plan) {
-    this.plan = plan;
+  public void setShortId(String shortId) {
+    this.shortId = shortId;
   }
 
   /**
@@ -113,6 +170,20 @@ public class Device extends AbstractBase {
   }
 
   /**
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * @param description the description to set
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  /**
    * @return the state
    */
   public State getState() {
@@ -127,17 +198,59 @@ public class Device extends AbstractBase {
   }
 
   /**
+   * @return the user
+   */
+  public String getUser() {
+    return user;
+  }
+
+  /**
+   * @param user the user to set
+   */
+  public void setUser(String user) {
+    this.user = user;
+  }
+
+  /**
+   * @return the iqn
+   */
+  public String getIqn() {
+    return iqn;
+  }
+
+  /**
+   * @param iqn the iqn to set
+   */
+  public void setIqn(String iqn) {
+    this.iqn = iqn;
+  }
+
+  /**
    * @return the locked
    */
-  public boolean isLocked() {
+  public Boolean isLocked() {
     return locked;
   }
 
   /**
    * @param locked the locked to set
    */
-  public void setLocked(boolean locked) {
+  public void setLocked(Boolean locked) {
     this.locked = locked;
+  }
+
+  /**
+   * @return the bondingMode
+   */
+  public Integer getBondingMode() {
+    return bondingMode;
+  }
+
+  /**
+   * @param bondingMode the bondingMode to set
+   */
+  public void setBondingMode(Integer bondingMode) {
+    this.bondingMode = bondingMode;
   }
 
   /**
@@ -169,17 +282,31 @@ public class Device extends AbstractBase {
   }
 
   /**
-   * @return the oS
+   * @return the operatingSystem
    */
-  public OperatingSystem getOS() {
-    return OS;
+  public OperatingSystem getOperatingSystem() {
+    return operatingSystem;
   }
 
   /**
-   * @param oS the oS to set
+   * @param operatingSystem the operatingSystem to set
    */
-  public void setOS(OperatingSystem oS) {
-    OS = oS;
+  public void setOperatingSystem(OperatingSystem operatingSystem) {
+    this.operatingSystem = operatingSystem;
+  }
+
+  /**
+   * @return the facility
+   */
+  public Facility getFacility() {
+    return facility;
+  }
+
+  /**
+   * @param facility the facility to set
+   */
+  public void setFacility(Facility facility) {
+    this.facility = facility;
   }
 
   /**
@@ -197,6 +324,20 @@ public class Device extends AbstractBase {
   }
 
   /**
+   * @return the plan
+   */
+  public Plan getPlan() {
+    return plan;
+  }
+
+  /**
+   * @param plan the plan to set
+   */
+  public void setPlan(Plan plan) {
+    this.plan = plan;
+  }
+
+  /**
    * @return the project
    */
   public Link getProject() {
@@ -208,6 +349,20 @@ public class Device extends AbstractBase {
    */
   public void setProject(Link project) {
     this.project = project;
+  }
+
+  /**
+   * @return the projectLite
+   */
+  public Link getProjectLite() {
+    return projectLite;
+  }
+
+  /**
+   * @param projectLite the projectLite to set
+   */
+  public void setProjectLite(Link projectLite) {
+    this.projectLite = projectLite;
   }
 
   /**
@@ -250,6 +405,51 @@ public class Device extends AbstractBase {
    */
   public void setHref(String href) {
     this.href = href;
+  }
+
+  /**
+   * @return the features
+   */
+  public Map<String, String> getFeatures() {
+    return features;
+  }
+
+  /**
+   * @param features the features to set
+   */
+  public void setFeatures(Map<String, String> features) {
+    this.features = features;
+  }
+
+  /**
+   * @return the provisioningPercentage
+   */
+  public double getProvisioningPercentage() {
+    return provisioningPercentage;
+  }
+
+  /**
+   * @param provisioningPercentage the provisioningPercentage to set
+   */
+  public void setProvisioningPercentage(double provisioningPercentage) {
+    this.provisioningPercentage = provisioningPercentage;
+  }
+
+  /**
+   * Packet provides root password for each server you provision for 24 hours. After 24 hours it
+   * will be permanently deleted on packet end, you will not be able to retrieve it.
+   * 
+   * @return the rootPassword
+   */
+  public String getRootPassword() {
+    return rootPassword;
+  }
+
+  /**
+   * @param rootPassword the rootPassword to set
+   */
+  public void setRootPassword(String rootPassword) {
+    this.rootPassword = rootPassword;
   }
 
 }
