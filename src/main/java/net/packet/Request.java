@@ -179,13 +179,6 @@ public class Request {
   }
 
   /**
-   * @return the elementName
-   */
-  public String getElementName() {
-    return endpoint.getElementName();
-  }
-
-  /**
    * @return the method
    */
   public HttpMethod getMethod() {

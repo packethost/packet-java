@@ -8,27 +8,30 @@
 package net.packet.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents Packet SSH Key values
+ * Membership for the project
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
  */
-public class SshKey extends AbstractBase {
+public class Membership extends AbstractBase {
 
   private String id;
 
   @Expose
-  private String label;
+  private List<String> roles;
 
   @Expose
-  private String key;
+  private Boolean owner;
 
-  private String fingerprint;
+  private Link project;
+
+  private Link user;
 
   @SerializedName("created_at")
   private Date createdAt;
@@ -38,36 +41,32 @@ public class SshKey extends AbstractBase {
 
   private String href;
 
-  private Link user;
-
   /**
    * Constructor
    */
-  public SshKey() {
+  public Membership() {
     // Default Constructor
   }
 
   /**
    * Constructor
    * 
-   * @param label SSH key label
-   * @param key SSH public key
+   * @param id membership id
+   * @param roles
    */
-  public SshKey(String label, String key) {
-    this(null, label, key);
+  public Membership(String id, List<String> roles) {
+    this.id = id;
+    this.roles = roles;
   }
 
   /**
-   * Constructor
+   * Check give roles is present
    * 
-   * @param id SSH Key Id
-   * @param label SSH key label
-   * @param key SSH public key
+   * @param role
+   * @return boolean
    */
-  public SshKey(String id, String label, String key) {
-    this.id = id;
-    this.label = label;
-    this.key = key;
+  public boolean isRole(String role) {
+    return roles.contains(role);
   }
 
   /**
@@ -85,45 +84,59 @@ public class SshKey extends AbstractBase {
   }
 
   /**
-   * @return the label
+   * @return the roles
    */
-  public String getLabel() {
-    return label;
+  public List<String> getRoles() {
+    return roles;
   }
 
   /**
-   * @param label the label to set
+   * @param roles the roles to set
    */
-  public void setLabel(String label) {
-    this.label = label;
+  public void setRoles(List<String> roles) {
+    this.roles = roles;
   }
 
   /**
-   * @return the key
+   * @return the owner
    */
-  public String getKey() {
-    return key;
+  public Boolean isOwner() {
+    return owner;
   }
 
   /**
-   * @param key the key to set
+   * @param owner the owner to set
    */
-  public void setKey(String key) {
-    this.key = key;
+  public void setOwner(Boolean owner) {
+    this.owner = owner;
   }
 
   /**
-   * @return the fingerprint
+   * @return the project
    */
-  public String getFingerprint() {
-    return fingerprint;
+  public Link getProject() {
+    return project;
   }
 
   /**
-   * @param fingerprint the fingerprint to set
+   * @param project the project to set
    */
-  public void setFingerprint(String fingerprint) {
-    this.fingerprint = fingerprint;
+  public void setProject(Link project) {
+    this.project = project;
+  }
+
+  /**
+   * @return the user
+   */
+  public Link getUser() {
+    return user;
+  }
+
+  /**
+   * @param user the user to set
+   */
+  public void setUser(Link user) {
+    this.user = user;
   }
 
   /**
@@ -166,20 +179,6 @@ public class SshKey extends AbstractBase {
    */
   public void setHref(String href) {
     this.href = href;
-  }
-
-  /**
-   * @return the user
-   */
-  public Link getUser() {
-    return user;
-  }
-
-  /**
-   * @param user the user to set
-   */
-  public void setUser(Link user) {
-    this.user = user;
   }
 
 }

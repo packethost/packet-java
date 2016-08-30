@@ -51,11 +51,16 @@ import net.packet.pojo.Error;
 import net.packet.pojo.Facilities;
 import net.packet.pojo.IpAddress;
 import net.packet.pojo.IpAddresses;
+import net.packet.pojo.Membership;
 import net.packet.pojo.OperatingSystems;
 import net.packet.pojo.Plans;
 import net.packet.pojo.Project;
 import net.packet.pojo.Projects;
 import net.packet.pojo.ReserveIpAddress;
+import net.packet.pojo.SshKey;
+import net.packet.pojo.SshKeys;
+import net.packet.pojo.User;
+import net.packet.pojo.Users;
 import net.packet.serializer.DeviceSerializer;
 import net.packet.serializer.ProjectSerializer;
 
@@ -402,6 +407,157 @@ public final class PacketClient implements Packet, Constants {
   }
 
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Users methods
+  // ___________________________________
+
+  @Override
+  public Users getUsers(Integer pageNo, Integer perPage) throws PacketException {
+    checkNullAndThrowError(pageNo, "Page no is required");
+
+    Request request = new Request(Endpoint.USERS)
+        .page(pageNo)
+        .perPage(perPage);
+
+    return (Users) executeRequest(request).getData();
+  }
+
+  @Override
+  public User getUser(String userId) throws PacketException {
+    checkEmptyAndThrowError(userId, "userId is required");
+
+    Request request = new Request(Endpoint.GET_USER)
+        .addPathParmas(new Object[] {userId});
+
+    return (User) executeRequest(request).getData();
+  }
+
+  @Override
+  public User getCurrentUser() throws PacketException {
+    Request request = new Request(Endpoint.CURRENT_USER);
+    return (User) executeRequest(request).getData();
+  }
+
+  @Override
+  public User updateCurrentUser(User user) throws PacketException {
+    if (null == user) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [user] for update current user.");
+    }
+
+    Request request = new Request(Endpoint.UPDATE_USER)
+        .body(user);
+
+    return (User) executeRequest(request).getData();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Memberships methods
+  // ___________________________________
+
+  @Override
+  public Membership getMembership(String membershipId) throws PacketException {
+    checkEmptyAndThrowError(membershipId, "membershipId is required");
+
+    Request request = new Request(Endpoint.GET_MEMBERSHIP)
+        .addPathParmas(new Object[] {membershipId});
+
+    return (Membership) executeRequest(request).getData();
+  }
+
+  @Override
+  public Membership updateMembership(Membership membership) throws PacketException {
+    if (null == membership
+        || StringUtils.isBlank(membership.getId())
+        || null == membership.getRoles()
+        || membership.getRoles().isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Id, Roles] for update membership.");
+    }
+
+    Request request = new Request(Endpoint.UPDATE_MEMBERSHIP)
+        .addPathParmas(new Object[] {membership.getId()})
+        .body(membership);
+
+    return (Membership) executeRequest(request).getData();
+  }
+
+  @Override
+  public Boolean deleteMembership(String membershipId) throws PacketException {
+    checkEmptyAndThrowError(membershipId, "membershipId is required");
+
+    Request request = new Request(Endpoint.DELETE_MEMBERSHIP)
+        .addPathParmas(new Object[] {membershipId});
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // SSH keys methods
+  // ___________________________________
+
+  @Override
+  public SshKeys getSshKeys(Integer pageNo, Integer perPage) throws PacketException {
+    checkNullAndThrowError(pageNo, "Page no is required");
+
+    Request request = new Request(Endpoint.SSH_KEYS)
+        .page(pageNo)
+        .perPage(perPage);
+
+    return (SshKeys) executeRequest(request).getData();
+  }
+
+  @Override
+  public SshKey getSshKey(String sshKeyId) throws PacketException {
+    checkEmptyAndThrowError(sshKeyId, "sshKeyId is required");
+
+    Request request = new Request(Endpoint.GET_SSH_KEY)
+        .addPathParmas(new Object[] {sshKeyId});
+
+    return (SshKey) executeRequest(request).getData();
+  }
+
+  @Override
+  public SshKey createSshKey(SshKey sshKey) throws PacketException {
+    if (null == sshKey
+        || StringUtils.isBlank(sshKey.getLabel())
+        || StringUtils.isBlank(sshKey.getKey())) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Label, Key] for create SSH key.");
+    }
+
+    Request request = new Request(Endpoint.CREATE_SSH_KEY)
+        .body(sshKey);
+
+    return (SshKey) executeRequest(request).getData();
+  }
+
+  @Override
+  public SshKey updateSshKey(SshKey sshKey) throws PacketException {
+    if (null == sshKey
+        || StringUtils.isBlank(sshKey.getId())
+        || (StringUtils.isBlank(sshKey.getLabel()) && StringUtils.isBlank(sshKey.getKey()))) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Id, Label, Key] for update SSH key.");
+    }
+
+    Request request = new Request(Endpoint.UPDATE_SSH_KEY)
+        .addPathParmas(new Object[] {sshKey.getId()})
+        .body(sshKey);
+
+    return (SshKey) executeRequest(request).getData();
+  }
+
+  @Override
+  public Boolean deleteSshKey(String sshKeyId) throws PacketException {
+    checkEmptyAndThrowError(sshKeyId, "sshKeyId is required");
+
+    Request request = new Request(Endpoint.DELETE_SSH_KEY)
+        .addPathParmas(new Object[] {sshKeyId});
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // Private methods
   // ___________________________________
 
@@ -470,8 +626,6 @@ public final class PacketClient implements Packet, Constants {
           }
 
           return httpPost;
-        case PUT:
-          break;
         case PATCH:
           HttpPatch httpPatch = new HttpPatch(req.buildUri());
           httpPatch.setHeaders(commonHeaders);

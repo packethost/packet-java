@@ -13,11 +13,16 @@ import net.packet.pojo.Devices;
 import net.packet.pojo.Facilities;
 import net.packet.pojo.IpAddress;
 import net.packet.pojo.IpAddresses;
+import net.packet.pojo.Membership;
 import net.packet.pojo.OperatingSystems;
 import net.packet.pojo.Plans;
 import net.packet.pojo.Project;
 import net.packet.pojo.Projects;
 import net.packet.pojo.ReserveIpAddress;
+import net.packet.pojo.SshKey;
+import net.packet.pojo.SshKeys;
+import net.packet.pojo.User;
+import net.packet.pojo.Users;
 
 /**
  * Packet API client interface of REST APIs.
@@ -72,25 +77,62 @@ public interface Packet {
   Device updateDevice(Device device) throws PacketException;
 
   Boolean deleteDevice(String deviceId) throws PacketException;
-  
+
   Boolean powerOnDevice(String deviceId) throws PacketException;
-  
+
   Boolean powerOffDevice(String deviceId) throws PacketException;
-  
+
   Boolean rebootDevice(String deviceId) throws PacketException;
-  
+
   Boolean rescueDevice(String deviceId) throws PacketException;
-  
+
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // IP Address methods
   // ___________________________________
-  
+
   IpAddresses getIpAddresses(String projectId) throws PacketException;
-  
-  Boolean reserveIpAddress(String projectId, ReserveIpAddress reserveIpAddress) throws PacketException;
+
+  Boolean reserveIpAddress(String projectId, ReserveIpAddress reserveIpAddress)
+      throws PacketException;
 
   IpAddress getIpAddress(String ipAddressId) throws PacketException;
 
   Boolean deleteIpAddress(String ipAddressId) throws PacketException;
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Users methods
+  // ___________________________________
+
+  Users getUsers(Integer pageNo, Integer perPage) throws PacketException;
+
+  User getUser(String userId) throws PacketException;
+
+  User getCurrentUser() throws PacketException;
+
+  User updateCurrentUser(User user) throws PacketException;
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Memberships methods
+  // ___________________________________
+
+  Membership getMembership(String membershipId) throws PacketException;
+
+  Membership updateMembership(Membership membership) throws PacketException;
+
+  Boolean deleteMembership(String membershipId) throws PacketException;
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // SSH keys methods
+  // ___________________________________
+
+  SshKeys getSshKeys(Integer pageNo, Integer perPage) throws PacketException;
+
+  SshKey getSshKey(String sshKeyId) throws PacketException;
+
+  SshKey createSshKey(SshKey sshKey) throws PacketException;
+
+  SshKey updateSshKey(SshKey sshKey) throws PacketException;
+
+  Boolean deleteSshKey(String sshKeyId) throws PacketException;
 
 }
