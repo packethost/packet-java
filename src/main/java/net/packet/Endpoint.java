@@ -10,10 +10,16 @@ package net.packet;
 import net.packet.http.HttpMethod;
 import net.packet.pojo.Device;
 import net.packet.pojo.Devices;
+import net.packet.pojo.Email;
+import net.packet.pojo.Event;
+import net.packet.pojo.Events;
 import net.packet.pojo.Facilities;
+import net.packet.pojo.Invitation;
 import net.packet.pojo.IpAddress;
 import net.packet.pojo.IpAddresses;
 import net.packet.pojo.Membership;
+import net.packet.pojo.Notification;
+import net.packet.pojo.Notifications;
 import net.packet.pojo.OperatingSystems;
 import net.packet.pojo.Plans;
 import net.packet.pojo.Project;
@@ -113,7 +119,34 @@ public enum Endpoint {
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // /invitations, /projects/{id}/invitations endpoint(s)
   // ___________________________________________________________
-  INVITE("/projects/{id}/invitations", HttpMethod.POST, SshKey.class);
+  INVITE("/projects/%s/invitations", HttpMethod.POST, Invitation.class),
+  GET_INVITE("/invitations/%s", HttpMethod.GET, Invitation.class),
+  ACCEPT_INVITE("/invitations/%s", HttpMethod.PATCH, Boolean.class),
+  DECLINE_INVITE("/invitations/%s", HttpMethod.DELETE, Boolean.class),
+  
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /events, */*/events endpoint(s)
+  // ___________________________________
+  EVENTS("/events", HttpMethod.GET, Events.class),
+  PROJECT_EVENTS("/projects/%s/events", HttpMethod.GET, Events.class),
+  DEVICE_EVENTS("/devices/%s/events", HttpMethod.GET, Events.class),
+  GET_EVENT("/events/%s", HttpMethod.GET, Event.class),
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /notifications endpoint(s)
+  // ___________________________________
+  NOTIFICATIONS("/notifications", HttpMethod.GET, Notifications.class),
+  GET_NOTIFICATION("/notifications/%s", HttpMethod.GET, Notification.class),
+  UPDATE_NOTIFICATION("/notifications/%s", HttpMethod.PATCH, Notification.class),
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /emails endpoint(s)
+  // ___________________________________
+  ADD_EMAIL("/emails", HttpMethod.POST, Email.class),
+  GET_EMAIL("/emails/%s", HttpMethod.GET, Email.class),
+  UPDATE_EMAIL("/emails/%s", HttpMethod.PATCH, Email.class),
+  DELETE_EMAIL("/emails/%s", HttpMethod.DELETE, Email.class);
 
   private String path;
 

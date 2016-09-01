@@ -43,7 +43,7 @@ public class Project extends AbstractBase {
 
   private List<Link> memberships;
 
-  // TODO invitations
+  private List<Link> invitations;
 
   @SerializedName("payment_method")
   private Link paymentMethod;
@@ -73,7 +73,7 @@ public class Project extends AbstractBase {
   public Project(String name, String paymentMethodId) {
     this(null, name, paymentMethodId);
   }
-  
+
   /**
    * Convenient Constructor for create project
    * 
@@ -197,6 +197,20 @@ public class Project extends AbstractBase {
    */
   public void setMemberships(List<Link> memberships) {
     this.memberships = memberships;
+  }
+
+  /**
+   * @return the invitations
+   */
+  public List<Link> getInvitations() {
+    return invitations;
+  }
+
+  /**
+   * @param invitations the invitations to set
+   */
+  public void setInvitations(List<Link> invitations) {
+    this.invitations = invitations;
   }
 
   /**

@@ -7,13 +7,21 @@
 
 package net.packet;
 
+import java.util.Date;
+
 import net.packet.exception.PacketException;
 import net.packet.pojo.Device;
 import net.packet.pojo.Devices;
+import net.packet.pojo.Email;
+import net.packet.pojo.Event;
+import net.packet.pojo.Events;
 import net.packet.pojo.Facilities;
+import net.packet.pojo.Invitation;
 import net.packet.pojo.IpAddress;
 import net.packet.pojo.IpAddresses;
 import net.packet.pojo.Membership;
+import net.packet.pojo.Notification;
+import net.packet.pojo.Notifications;
 import net.packet.pojo.OperatingSystems;
 import net.packet.pojo.Plans;
 import net.packet.pojo.Project;
@@ -134,5 +142,52 @@ public interface Packet {
   SshKey updateSshKey(SshKey sshKey) throws PacketException;
 
   Boolean deleteSshKey(String sshKeyId) throws PacketException;
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Invitations methods
+  // ___________________________________
+
+  Invitation invite(String projectId, Invitation invitation) throws PacketException;
+
+  Invitation getInvite(String invitationId) throws PacketException;
+
+  Boolean acceptInvite(String invitationId) throws PacketException;
+
+  Boolean declineInvite(String invitationId) throws PacketException;
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Events methods
+  // ___________________________________
+
+  Events getEvents(Date since, Integer pageNo, Integer perPage) throws PacketException;
+
+  Events getProjectEvents(String projectId, Integer pageNo, Integer perPage) throws PacketException;
+
+  Events getDeviceEvents(String deviceId, Integer pageNo, Integer perPage) throws PacketException;
+
+  Event getEvent(String eventId) throws PacketException;
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Notifications methods
+  // ___________________________________
+
+  Notifications getNotifications(Date since, Boolean all, Integer pageNo, Integer perPage)
+      throws PacketException;
+
+  Notification getNotification(String notificationId) throws PacketException;
+
+  Notification updateNotification(Notification notification) throws PacketException;
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Email methods
+  // ___________________________________
+
+  Email addEmailAddress(Email email) throws PacketException;
+
+  Email getEmailAddress(String emailId) throws PacketException;
+
+  Email updateEmailAddress(Email email) throws PacketException;
+
+  Boolean deleteEmailAddress(String emailId) throws PacketException;
 
 }

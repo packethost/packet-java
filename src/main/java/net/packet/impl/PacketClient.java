@@ -10,6 +10,8 @@ package net.packet.impl;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -47,11 +49,17 @@ import net.packet.http.methods.HttpDelete;
 import net.packet.pojo.Action;
 import net.packet.pojo.Device;
 import net.packet.pojo.Devices;
+import net.packet.pojo.Email;
 import net.packet.pojo.Error;
+import net.packet.pojo.Event;
+import net.packet.pojo.Events;
 import net.packet.pojo.Facilities;
+import net.packet.pojo.Invitation;
 import net.packet.pojo.IpAddress;
 import net.packet.pojo.IpAddresses;
 import net.packet.pojo.Membership;
+import net.packet.pojo.Notification;
+import net.packet.pojo.Notifications;
 import net.packet.pojo.OperatingSystems;
 import net.packet.pojo.Plans;
 import net.packet.pojo.Project;
@@ -104,6 +112,11 @@ public final class PacketClient implements Packet, Constants {
    * Content-Type header JSON
    */
   private Header contentTypeHeader;
+
+  /**
+   * ISO 8601 date format
+   */
+  private SimpleDateFormat isoDateFormatter;
 
   /**
    * Apache httpcomponents Http client, v4.5.2
@@ -558,6 +571,218 @@ public final class PacketClient implements Packet, Constants {
   }
 
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Invitations methods
+  // ___________________________________
+
+  @Override
+  public Invitation invite(String projectId, Invitation invitation) throws PacketException {
+    checkEmptyAndThrowError(projectId, "projectId is required");
+    if (null == invitation
+        || StringUtils.isBlank(invitation.getInvitee())
+        || StringUtils.isBlank(invitation.getMessage())
+        || null == invitation.getRoles()
+        || invitation.getRoles().isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Invitee, Message, Roles] for sending invite.");
+    }
+
+    Request request = new Request(Endpoint.INVITE)
+        .addPathParmas(new Object[] {projectId})
+        .body(invitation);
+
+    return (Invitation) executeRequest(request).getData();
+  }
+
+  @Override
+  public Invitation getInvite(String invitationId) throws PacketException {
+    checkEmptyAndThrowError(invitationId, "invitationId is required");
+
+    Request request = new Request(Endpoint.GET_INVITE)
+        .addPathParmas(new Object[] {invitationId});
+
+    return (Invitation) executeRequest(request).getData();
+  }
+
+  @Override
+  public Boolean acceptInvite(String invitationId) throws PacketException {
+    checkEmptyAndThrowError(invitationId, "invitationId is required");
+
+    Request request = new Request(Endpoint.ACCEPT_INVITE)
+        .addPathParmas(new Object[] {invitationId});
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  @Override
+  public Boolean declineInvite(String invitationId) throws PacketException {
+    checkEmptyAndThrowError(invitationId, "invitationId is required");
+
+    Request request = new Request(Endpoint.DECLINE_INVITE)
+        .addPathParmas(new Object[] {invitationId});
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Events methods
+  // ___________________________________
+
+  @Override
+  public Events getEvents(Date since, Integer pageNo, Integer perPage) throws PacketException {
+    checkNullAndThrowError(pageNo, "Page no is required");
+
+    Request request = new Request(Endpoint.EVENTS)
+        .page(pageNo)
+        .perPage(perPage);
+
+    if (null != since) {
+      request.queryParam("since", isoDateFormatter.format(since));
+    }
+
+    return (Events) executeRequest(request).getData();
+  }
+
+  @Override
+  public Events getProjectEvents(String projectId, Integer pageNo, Integer perPage)
+      throws PacketException {
+    checkEmptyAndThrowError(projectId, "projectId is required");
+    checkNullAndThrowError(pageNo, "Page no is required");
+
+    Request request = new Request(Endpoint.PROJECT_EVENTS)
+        .addPathParmas(new Object[] {projectId})
+        .page(pageNo)
+        .perPage(perPage);
+
+    return (Events) executeRequest(request).getData();
+  }
+
+  @Override
+  public Events getDeviceEvents(String deviceId, Integer pageNo, Integer perPage)
+      throws PacketException {
+    checkEmptyAndThrowError(deviceId, "deviceId is required");
+    checkNullAndThrowError(pageNo, "Page no is required");
+
+    Request request = new Request(Endpoint.DEVICE_EVENTS)
+        .addPathParmas(new Object[] {deviceId})
+        .page(pageNo)
+        .perPage(perPage);
+
+    return (Events) executeRequest(request).getData();
+  }
+
+  @Override
+  public Event getEvent(String eventId) throws PacketException {
+    checkEmptyAndThrowError(eventId, "eventId is required");
+
+    Request request = new Request(Endpoint.GET_EVENT)
+        .addPathParmas(new Object[] {eventId});
+
+    return (Event) executeRequest(request).getData();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Notifications methods
+  // ___________________________________
+
+  @Override
+  public Notifications getNotifications(Date since, Boolean all, Integer pageNo, Integer perPage)
+      throws PacketException {
+    checkNullAndThrowError(pageNo, "Page no is required");
+
+    Request request = new Request(Endpoint.NOTIFICATIONS)
+        .page(pageNo)
+        .perPage(perPage);
+
+    if (null != since) {
+      request.queryParam("since", isoDateFormatter.format(since));
+    }
+
+    if (null != all) {
+      request.queryParam("all", all.toString());
+    }
+
+    return (Notifications) executeRequest(request).getData();
+  }
+
+  @Override
+  public Notification getNotification(String notificationId) throws PacketException {
+    checkEmptyAndThrowError(notificationId, "notificationId is required");
+
+    Request request = new Request(Endpoint.GET_NOTIFICATION)
+        .addPathParmas(new Object[] {notificationId});
+
+    return (Notification) executeRequest(request).getData();
+  }
+
+  @Override
+  public Notification updateNotification(Notification notification) throws PacketException {
+    if (null == notification
+        || StringUtils.isBlank(notification.getId())
+        || null == notification.isRead()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Id, Read] for update notification.");
+    }
+
+    Request request = new Request(Endpoint.UPDATE_NOTIFICATION)
+        .addPathParmas(new Object[] {notification.getId()})
+        .body(notification);
+
+    return (Notification) executeRequest(request).getData();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Email methods
+  // ___________________________________
+
+  @Override
+  public Email addEmailAddress(Email email) throws PacketException {
+    if (null == email || StringUtils.isBlank(email.getAddress())) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Address] for adding email address.");
+    }
+
+    Request request = new Request(Endpoint.ADD_EMAIL).body(email);
+
+    return (Email) executeRequest(request).getData();
+  }
+
+  @Override
+  public Email getEmailAddress(String emailId) throws PacketException {
+    checkEmptyAndThrowError(emailId, "emailId is required");
+
+    Request request = new Request(Endpoint.GET_EMAIL)
+        .addPathParmas(new Object[] {emailId});
+
+    return (Email) executeRequest(request).getData();
+  }
+
+  @Override
+  public Email updateEmailAddress(Email email) throws PacketException {
+    if (null == email
+        || StringUtils.isBlank(email.getId())
+        || null == email.isDefault()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Id, IsDefault] for updating email address.");
+    }
+
+    Request request = new Request(Endpoint.UPDATE_EMAIL)
+        .addPathParmas(new Object[] {email.getId()})
+        .body(email);
+
+    return (Email) executeRequest(request).getData();
+  }
+
+  @Override
+  public Boolean deleteEmailAddress(String emailId) throws PacketException {
+    checkEmptyAndThrowError(emailId, "emailId is required");
+
+    Request request = new Request(Endpoint.DELETE_EMAIL)
+        .addPathParmas(new Object[] {emailId});
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // Private methods
   // ___________________________________
 
@@ -731,6 +956,8 @@ public final class PacketClient implements Packet, Constants {
     };
 
     this.contentTypeHeader = new BasicHeader(HttpHeader.CONTENT_TYPE, MEDIA_TYPE_JSON);
+
+    this.isoDateFormatter = new SimpleDateFormat(DATE_FORMAT);
 
     if (null == this.httpClient) {
       this.httpClient = HttpClients.createDefault();
