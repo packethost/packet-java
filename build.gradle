@@ -5,6 +5,8 @@
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 ext {
     javaVersion = 1.7
@@ -55,6 +57,10 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
+signing {
+    sign configurations.archives
+}
+
 // Eclipse JDK selection
 afterEvaluate {
     eclipse.classpath {
@@ -65,4 +71,48 @@ afterEvaluate {
         }
         containers "${containerPrefix}/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-${javaVersion}"
     }
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'Packet.net Java API Client'
+        packaging 'jar'
+        description 'Lightweight API client library for accessing Packet REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.'
+        url 'https://github.com/packethost/packet-java'
+
+        scm {
+          connection 'scm:git:git@github.com:packethost/packet-java.git'
+          developerConnection 'scm:git:git@github.com:packethost/packet-java.git'
+          url 'git@github.com:packethost/packet-java.git'
+        }
+
+        licenses {
+          license {
+            name 'The MIT License (MIT)'
+            url 'https://github.com/packethost/packet-java/blob/master/LICENSE'
+          }
+        }
+
+        developers {
+          developer {
+            id 'jeevatkm'
+            name 'Jeevanandam M.'
+            email 'jeeva@myjeeva.com'
+          }
+        }
+      }
+    }
+  }
 }
