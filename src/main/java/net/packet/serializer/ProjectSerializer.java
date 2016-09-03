@@ -19,7 +19,7 @@ import com.google.gson.JsonSerializer;
 import net.packet.pojo.Project;
 
 /**
- * Serializer for {@link Project}
+ * Serializer for {@link Project}.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

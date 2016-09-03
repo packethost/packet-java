@@ -10,7 +10,7 @@ package net.packet.pojo;
 import java.util.List;
 
 /**
- * Plan is used to get all Service plan details
+ * Plans represents the collections of Packet Plan.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

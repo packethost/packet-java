@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Traffic Bucket enum internal & external
+ * Enumeration of Traffic Bucket classifications (internal &amp; external).
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

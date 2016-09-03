@@ -12,7 +12,7 @@ import java.util.Date;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents transfer request
+ * Represents Project Transfer request detail.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

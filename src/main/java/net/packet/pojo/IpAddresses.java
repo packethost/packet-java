@@ -12,7 +12,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * IP Addresses is used to get all IP Address belongs to the {@link Project}
+ * IP Addresses represents collections IP Address that belongs to the {@link Project}.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

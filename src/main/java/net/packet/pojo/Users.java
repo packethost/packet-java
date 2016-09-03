@@ -10,7 +10,7 @@ package net.packet.pojo;
 import java.util.List;
 
 /**
- * Users to get all the users belongs to project from packet
+ * Users represents the collection User information.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

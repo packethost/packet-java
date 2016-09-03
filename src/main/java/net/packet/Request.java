@@ -20,7 +20,7 @@ import net.packet.http.HttpMethod;
 import net.packet.http.QueryParam;
 
 /**
- * Request is used for Packet REST API request values.
+ * Request is used to compose Packet REST API request values.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
@@ -37,6 +37,9 @@ public class Request {
 
   private List<String> includes;
 
+  /**
+   * Constructor
+   */
   public Request() {
     // Default Constructor
   }
@@ -98,7 +101,7 @@ public class Request {
     if (null == perPage) {
       return this;
     }
-    
+
     return queryParam(QueryParam.KEY_PER_PAGE, String.valueOf(perPage));
   }
 
@@ -132,7 +135,7 @@ public class Request {
     this.body = body;
     return this;
   }
-  
+
   public Request addPathParmas(Object[] params) {
     this.pathParams = params;
     return this;
@@ -151,7 +154,7 @@ public class Request {
    * Returns the composed endpoint URI.
    * 
    * @return {@link URI}
-   * @throws URISyntaxException
+   * @throws URISyntaxException when URI is incorrect
    */
   public URI buildUri() throws URISyntaxException {
     URIBuilder ub = new URIBuilder();

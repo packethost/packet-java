@@ -21,7 +21,7 @@ import com.google.gson.JsonSerializer;
 import net.packet.pojo.Device;
 
 /**
- * Serializer for {@link Device}
+ * Serializer for {@link Device}.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

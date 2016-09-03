@@ -7,28 +7,27 @@
 
 package net.packet;
 
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Packet Device Action types enum.
+ * Enumeration of Packet Device Action types.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
  */
 public enum ActionType {
 
-  @SerializedName("power_on") 
+  @SerializedName("power_on")
   POWER_ON("power_on"),
-  
+
   @SerializedName("power_off") 
   POWER_OFF("power_off"),
-  
+
   @SerializedName("reboot")
   REBOOT("reboot"),
-  
+
   @SerializedName("rescue")
   RESCUE("rescue");
 

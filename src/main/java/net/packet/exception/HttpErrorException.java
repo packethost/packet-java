@@ -8,8 +8,7 @@
 package net.packet.exception;
 
 /**
- * {@link HttpErrorException} will be thrown if any REST API request is unsuccessful from packet
- * java client
+ * Exception will be thrown if any REST API request is unsuccessful.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

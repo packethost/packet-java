@@ -10,7 +10,7 @@ package net.packet;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * IP family enumeration to represent IP V4 and V6 classification.
+ * Enumeration of IP family to represent IP V4 and V6 classification.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

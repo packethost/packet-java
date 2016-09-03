@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
 import net.packet.IpFamily;
 
 /**
- * Describes packet IP address, family and private or public network
+ * Represents packet IP address, family and private or public network.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

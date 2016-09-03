@@ -36,6 +36,8 @@ public class Facility extends AbstractBase {
 
   /**
    * Constructor
+   * 
+   * @param code a facility code
    */
   public Facility(String code) {
     this.code = code;

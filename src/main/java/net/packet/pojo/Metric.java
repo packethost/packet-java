@@ -12,7 +12,7 @@ import java.util.Date;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Metric For device traffic details
+ * Metric for device traffic details.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

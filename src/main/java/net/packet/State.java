@@ -13,17 +13,17 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Describes Resource status
+ * Enumeration of Packet Resource Status.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
  */
 public enum State {
 
-  @SerializedName("active") 
+  @SerializedName("active")
   ACTIVE("active"),
   
-  @SerializedName("inactive") 
+  @SerializedName("inactive")
   INACTIVE("inactive"),
   
   @SerializedName("queued")

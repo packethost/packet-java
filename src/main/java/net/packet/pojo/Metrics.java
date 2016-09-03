@@ -12,7 +12,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Collection of metrics
+ * Collection of metrics.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

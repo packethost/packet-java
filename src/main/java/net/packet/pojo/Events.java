@@ -10,7 +10,7 @@ package net.packet.pojo;
 import java.util.List;
 
 /**
- * Events to get all events belongs to projects, devices, etc.
+ * Events represents the collections of event belongs to projects, devices, etc.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

@@ -131,10 +131,25 @@ public final class PacketClient implements Packet, Constants {
    */
   private CloseableHttpClient httpClient;
 
+  /**
+   * Constructor for creating Packet API Client Instance.
+   * 
+   * @param authToken authentication tokens from
+   *        <a href="https://app.packet.net/portal#/api-keys">Packet Portal</a>
+   * @param version API version number
+   */
   public PacketClient(String authToken, String version) {
     this(authToken, version, null);
   }
 
+  /**
+   * Constructor for creating Packet API Client Instance with HTTP Client.
+   * 
+   * @param authToken authentication tokens from
+   *        <a href="https://app.packet.net/portal#/api-keys">Packet Portal</a>
+   * @param version API version number
+   * @param httpClient Apache HTTP Client instance
+   */
   public PacketClient(String authToken, String version, CloseableHttpClient httpClient) {
     if (!"1".equalsIgnoreCase(version)) {
       throw new IllegalArgumentException("Incorrect Packet API version number");

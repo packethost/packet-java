@@ -10,7 +10,7 @@ package net.packet.pojo;
 import com.google.gson.annotations.Expose;
 
 /**
- * ReserveIpAddress is used to reserve an IP address from Packet
+ * ReserveIpAddress is used to reserve an IP address from Packet.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
@@ -37,8 +37,8 @@ public class ReserveIpAddress extends AbstractBase {
    * Constructor
    * 
    * @param type is <code>public_ipv4</code> or <code>global_ipv4</code>
-   * @param quantity
-   * @param comments
+   * @param quantity how many IPv4 you want to request
+   * @param comments message for packet team
    */
   public ReserveIpAddress(String type, Integer quantity, String comments) {
     this.type = type;
@@ -49,11 +49,9 @@ public class ReserveIpAddress extends AbstractBase {
   /**
    * One of the following:
    * 
-   * <p>
    * <ul>
    * <li>public_ipv4 or global_ipv4</li>
    * </ul>
-   * </p>
    * 
    * @return the type
    */
@@ -64,11 +62,9 @@ public class ReserveIpAddress extends AbstractBase {
   /**
    * One of the following:
    * 
-   * <p>
    * <ul>
    * <li>public_ipv4 or global_ipv4</li>
    * </ul>
-   * </p>
    * 
    * @param type the type to set
    */

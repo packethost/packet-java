@@ -13,7 +13,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents Events details from Packet
+ * Represents Events details from Packet.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

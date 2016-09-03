@@ -10,7 +10,7 @@ package net.packet.pojo;
 import java.math.BigDecimal;
 
 /**
- * Packet price details of hourly and daily
+ * Packet price details of hourly and daily.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

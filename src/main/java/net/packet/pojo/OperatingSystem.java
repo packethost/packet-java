@@ -12,7 +12,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Describes packet device opertaing system details.
+ * Represents packet device operating system details.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
@@ -39,6 +39,8 @@ public class OperatingSystem extends AbstractBase {
 
   /**
    * Constructor
+   * 
+   * @param slug name of the slug
    */
   public OperatingSystem(String slug) {
     this.slug = slug;

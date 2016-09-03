@@ -8,7 +8,7 @@
 package net.packet.exception;
 
 /**
- * {@link PacketException} will be thrown, while API request had an interruption.
+ * Exception will be thrown, while API request had an interruption.
  * 
  * <p>
  * <code>HTTP Status &gt;= 400 &amp;&amp; &lt; 510</code>

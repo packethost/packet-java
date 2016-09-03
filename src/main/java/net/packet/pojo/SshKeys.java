@@ -12,7 +12,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * SshKeys to get all the SSH Keys from an account.
+ * SshKeys represents the collection of SSH Keys from an account.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

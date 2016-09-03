@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Traffic direction enum inbound & outbound
+ * Enumeration of Traffic Direction type (inbound &amp; outbound).
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

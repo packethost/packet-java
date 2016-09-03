@@ -14,7 +14,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Membership for the project
+ * Membership for the project.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
@@ -52,7 +52,7 @@ public class Membership extends AbstractBase {
    * Constructor
    * 
    * @param id membership id
-   * @param roles
+   * @param roles user roles
    */
   public Membership(String id, List<String> roles) {
     this.id = id;
@@ -62,7 +62,7 @@ public class Membership extends AbstractBase {
   /**
    * Check give roles is present
    * 
-   * @param role
+   * @param role name of the role. For e.g.: billing
    * @return boolean
    */
   public boolean isRole(String role) {

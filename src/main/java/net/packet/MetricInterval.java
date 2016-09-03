@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Metric Interval used to get traffic metric into groups.
+ * Enumeration of Metric Interval used to get traffic metric into groups.
  * 
  * <p>
  * The interval parameter groups results into sub-timeframes spanning a specified length of time.

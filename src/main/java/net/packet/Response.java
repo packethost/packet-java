@@ -10,7 +10,7 @@ package net.packet;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Response is used for Packet REST API response values.
+ * Response holds Packet REST API response values.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
@@ -41,6 +41,11 @@ public class Response {
     return ReflectionToStringBuilder.toString(this);
   }
 
+  /**
+   * To check response has body or not
+   * 
+   * @return boolean
+   */
   public boolean isDataExists() {
     return (null == data);
   }

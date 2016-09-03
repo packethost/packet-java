@@ -12,7 +12,7 @@ import com.google.gson.annotations.Expose;
 import net.packet.ActionType;
 
 /**
- * Device actions type usage
+ * Device actions type usage.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

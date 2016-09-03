@@ -10,7 +10,7 @@ package net.packet.pojo;
 import java.util.List;
 
 /**
- * Facilities is used to get all location (aka data center) details
+ * Facilities represents the collection of Packet facility (aka data center) details.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
