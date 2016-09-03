@@ -20,6 +20,7 @@ import net.packet.pojo.Invitation;
 import net.packet.pojo.IpAddress;
 import net.packet.pojo.IpAddresses;
 import net.packet.pojo.Membership;
+import net.packet.pojo.Metrics;
 import net.packet.pojo.Notification;
 import net.packet.pojo.Notifications;
 import net.packet.pojo.OperatingSystems;
@@ -29,6 +30,7 @@ import net.packet.pojo.Projects;
 import net.packet.pojo.ReserveIpAddress;
 import net.packet.pojo.SshKey;
 import net.packet.pojo.SshKeys;
+import net.packet.pojo.Transfer;
 import net.packet.pojo.User;
 import net.packet.pojo.Users;
 
@@ -73,6 +75,18 @@ public interface Packet {
   Boolean deleteProject(String projectId) throws PacketException;
 
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Project Transfer methods
+  // ___________________________________
+
+  Transfer transferProject(String projectId, String membershipId) throws PacketException;
+
+  Transfer getTransferInfo(String transferId) throws PacketException;
+
+  Boolean acceptTransfer(String transferId) throws PacketException;
+
+  Boolean declineTransfer(String transferId) throws PacketException;
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // Devices methods
   // ___________________________________
 
@@ -93,6 +107,12 @@ public interface Packet {
   Boolean rebootDevice(String deviceId) throws PacketException;
 
   Boolean rescueDevice(String deviceId) throws PacketException;
+
+  Metrics deviceTraffic(String deviceId, TrafficDirection direction, Date timeframeStart,
+      Date timeframeEnd) throws PacketException;
+
+  Metrics deviceTraffic(String deviceId, TrafficDirection direction, Date timeframeStart,
+      Date timeframeEnd, MetricInterval interval, TrafficBucket bucket) throws PacketException;
 
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // IP Address methods

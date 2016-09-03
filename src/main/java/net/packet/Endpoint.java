@@ -18,6 +18,7 @@ import net.packet.pojo.Invitation;
 import net.packet.pojo.IpAddress;
 import net.packet.pojo.IpAddresses;
 import net.packet.pojo.Membership;
+import net.packet.pojo.Metrics;
 import net.packet.pojo.Notification;
 import net.packet.pojo.Notifications;
 import net.packet.pojo.OperatingSystems;
@@ -26,6 +27,7 @@ import net.packet.pojo.Project;
 import net.packet.pojo.Projects;
 import net.packet.pojo.SshKey;
 import net.packet.pojo.SshKeys;
+import net.packet.pojo.Transfer;
 import net.packet.pojo.User;
 import net.packet.pojo.Users;
 
@@ -38,17 +40,17 @@ import net.packet.pojo.Users;
 public enum Endpoint {
 
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-  // Facility methods
+  // /facilities endpoint(s)
   // ___________________________________
   FACILITIES("/facilities", HttpMethod.GET, Facilities.class),
 
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-  // Operating systems methods
+  // /operating-systems endpoint(s)
   // ___________________________________
   OPERATING_SYSTEMS("/operating-systems", HttpMethod.GET, OperatingSystems.class),
   
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-  // Plans methods
+  // /plans endpoint(s)
   // ___________________________________
   PLANS("/plans", HttpMethod.GET, Plans.class),
 
@@ -62,10 +64,22 @@ public enum Endpoint {
   DELETE_PROJECT("/projects/%s", HttpMethod.DELETE, Boolean.class),
   
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-  // /projects/{id}/devices
+  // /projects/{id}/transfers endpoint(s)
+  // ___________________________________
+  TRANSFER("/projects/%s/transfers", HttpMethod.POST, Transfer.class),
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /projects/{id}/devices endpoint(s)
   // ___________________________________
   DEVICES("/projects/%s/devices", HttpMethod.GET, Devices.class),
   CREATE_DEVICE("/projects/%s/devices", HttpMethod.POST, Device.class),
+  
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // /transfers endpoint(s)
+  // ___________________________________
+  GET_TRANSFER("/transfers/%s", HttpMethod.GET, Transfer.class),
+  ACCEPT_TRANSFER("/transfers/%s", HttpMethod.PATCH, Boolean.class),
+  DECLINE_TRANSFER("/transfers/%s", HttpMethod.DELETE, Boolean.class),
   
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // /devices endpoint(s)
@@ -73,12 +87,12 @@ public enum Endpoint {
   GET_DEVICE("/devices/%s", HttpMethod.GET, Device.class),  
   UPDATE_DEVICE("/devices/%s", HttpMethod.PATCH, Device.class), 
   DELETE_DEVICE("/devices/%s", HttpMethod.DELETE, Boolean.class),
+  DEVICE_TRAFFIC("/devices/%s/traffic", HttpMethod.GET, Metrics.class),
   
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // /devices/{id}/actions endpoint(s)
   // ___________________________________
   DEVICE_ACTIONS("/devices/%s/actions", HttpMethod.POST, Boolean.class),
-  
   
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // /projects/{id}/devices
@@ -108,7 +122,7 @@ public enum Endpoint {
   DELETE_MEMBERSHIP("/memberships/%s", HttpMethod.DELETE, Boolean.class),
   
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-  // /memberships endpoint(s)
+  // /ssh-keys endpoint(s)
   // ___________________________________
   SSH_KEYS("/ssh-keys", HttpMethod.GET, SshKeys.class),
   GET_SSH_KEY("/ssh-keys/%s", HttpMethod.GET, SshKey.class),
@@ -123,7 +137,6 @@ public enum Endpoint {
   GET_INVITE("/invitations/%s", HttpMethod.GET, Invitation.class),
   ACCEPT_INVITE("/invitations/%s", HttpMethod.PATCH, Boolean.class),
   DECLINE_INVITE("/invitations/%s", HttpMethod.DELETE, Boolean.class),
-  
   
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // /events, */*/events endpoint(s)

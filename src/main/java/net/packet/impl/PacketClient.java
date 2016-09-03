@@ -12,6 +12,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -39,9 +42,12 @@ import com.google.gson.JsonSyntaxException;
 import net.packet.ActionType;
 import net.packet.Constants;
 import net.packet.Endpoint;
+import net.packet.MetricInterval;
 import net.packet.Packet;
 import net.packet.Request;
 import net.packet.Response;
+import net.packet.TrafficBucket;
+import net.packet.TrafficDirection;
 import net.packet.exception.HttpErrorException;
 import net.packet.exception.PacketException;
 import net.packet.http.HttpHeader;
@@ -58,6 +64,7 @@ import net.packet.pojo.Invitation;
 import net.packet.pojo.IpAddress;
 import net.packet.pojo.IpAddresses;
 import net.packet.pojo.Membership;
+import net.packet.pojo.Metrics;
 import net.packet.pojo.Notification;
 import net.packet.pojo.Notifications;
 import net.packet.pojo.OperatingSystems;
@@ -67,6 +74,7 @@ import net.packet.pojo.Projects;
 import net.packet.pojo.ReserveIpAddress;
 import net.packet.pojo.SshKey;
 import net.packet.pojo.SshKeys;
+import net.packet.pojo.Transfer;
 import net.packet.pojo.User;
 import net.packet.pojo.Users;
 import net.packet.serializer.DeviceSerializer;
@@ -250,6 +258,55 @@ public final class PacketClient implements Packet, Constants {
   }
 
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  // Project Transfer methods
+  // ___________________________________
+
+  @Override
+  public Transfer transferProject(String projectId, String membershipId) throws PacketException {
+    checkEmptyAndThrowError(projectId, "projectId is required");
+    checkEmptyAndThrowError(membershipId, "membershipId is required");
+
+    Map<String, String> requestBody = new HashMap<>();
+    requestBody.put("membership", membershipId);
+
+    Request request = new Request(Endpoint.TRANSFER)
+        .addPathParmas(new Object[] {projectId})
+        .body(requestBody);
+
+    return (Transfer) executeRequest(request).getData();
+  }
+
+  @Override
+  public Transfer getTransferInfo(String transferId) throws PacketException {
+    checkEmptyAndThrowError(transferId, "transferId is required");
+
+    Request request = new Request(Endpoint.GET_TRANSFER)
+        .addPathParmas(new Object[] {transferId});
+
+    return (Transfer) executeRequest(request).getData();
+  }
+
+  @Override
+  public Boolean acceptTransfer(String transferId) throws PacketException {
+    checkEmptyAndThrowError(transferId, "transferId is required");
+
+    Request request = new Request(Endpoint.ACCEPT_TRANSFER)
+        .addPathParmas(new Object[] {transferId});
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  @Override
+  public Boolean declineTransfer(String transferId) throws PacketException {
+    checkEmptyAndThrowError(transferId, "transferId is required");
+
+    Request request = new Request(Endpoint.DECLINE_TRANSFER)
+        .addPathParmas(new Object[] {transferId});
+
+    return executeRequest(request).isRequestSuccess();
+  }
+
+  // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
   // Devices methods
   // ___________________________________
 
@@ -365,6 +422,38 @@ public final class PacketClient implements Packet, Constants {
         .body(new Action(ActionType.RESCUE));
 
     return executeRequest(request).isRequestSuccess();
+  }
+
+  @Override
+  public Metrics deviceTraffic(String deviceId, TrafficDirection direction, Date timeframeStart,
+      Date timeframeEnd) throws PacketException {
+    return deviceTraffic(deviceId, direction, timeframeStart, timeframeEnd, null, null);
+  }
+
+  @Override
+  public Metrics deviceTraffic(String deviceId, TrafficDirection direction, Date timeframeStart,
+      Date timeframeEnd, MetricInterval interval, TrafficBucket bucket) throws PacketException {
+    checkEmptyAndThrowError(deviceId, "deviceId is required");
+    if (null == direction || null == timeframeStart || null == timeframeEnd) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Traffic direction, Timeframe start date, Timeframe end date] for device traffic info.");
+    }
+
+    Request request = new Request(Endpoint.DEVICE_TRAFFIC)
+        .addPathParmas(new Object[] {deviceId})
+        .queryParam("direction", direction.getValue())
+        .queryParam("timeframe['started_at']", isoDateFormatter.format(timeframeStart))
+        .queryParam("timeframe['ended_at']", isoDateFormatter.format(timeframeEnd));
+
+    if (null != interval) {
+      request.queryParam("interval", interval.getValue());
+    }
+
+    if (null != bucket) {
+      request.queryParam("bucket", bucket.getValue());
+    }
+
+    return (Metrics) executeRequest(request).getData();
   }
 
   // ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -951,13 +1040,14 @@ public final class PacketClient implements Packet, Constants {
     this.commonHeaders = new Header[] {
         new BasicHeader(HttpHeader.USER_AGENT, USER_AGENT),
         new BasicHeader(HttpHeader.ACCEPT,
-            String.format("%s; version=%s", MEDIA_TYPE_JSON, version)),
+            String.format(ACCEPT_HDR_FORMAT, MEDIA_TYPE_JSON, version)),
         new BasicHeader(HttpHeader.AUTHORIZATION, authToken)
     };
 
     this.contentTypeHeader = new BasicHeader(HttpHeader.CONTENT_TYPE, MEDIA_TYPE_JSON);
 
     this.isoDateFormatter = new SimpleDateFormat(DATE_FORMAT);
+    this.isoDateFormatter.setTimeZone(TimeZone.getTimeZone(UTC_TIMEZONE));
 
     if (null == this.httpClient) {
       this.httpClient = HttpClients.createDefault();
