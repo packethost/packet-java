@@ -34,7 +34,7 @@ dependencies {
     )
 
     // tests
-    testCompile 'junit:junit:4.+'
+    testCompile 'junit:junit:4.12'
 }
 
 // Project tasks
@@ -87,9 +87,9 @@ uploadArchives {
       }
 
       pom.project {
-        name 'Packet.net Java API Client'
+        name 'Packet API Java Client'
         packaging 'jar'
-        description 'Lightweight API client library for accessing Packet REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.'
+        description 'Lightweight Java Client library for accessing Packet REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.'
         url 'https://github.com/packethost/packet-java'
 
         scm {
