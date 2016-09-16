@@ -35,7 +35,7 @@ libraryDependencies += "net.packet" % "java-client" % "1.0.0"
 
 # Getting Help
 
-* API Javadoc: [Packet API Java Client]()
+* API Javadoc: [Packet API Java Client](https://packethost.github.io/packet-java/)
 * Example usage: have a look at [PacketIntegrationTest](src/test/java/net/packet/impl/PacketIntegrationTest.java)
 
 # How to create Packet API Java Client?
