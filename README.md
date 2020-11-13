@@ -1,6 +1,7 @@
 # Packet API Java Client
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java?ref=badge_shield)
 
 Lightweight Java client library for accessing Packet REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
@@ -71,3 +72,7 @@ Refer [CHANGELOG.md](CHANGELOG.md)
 5. Commit your changes - `git commit -am 'Added feature'`
 6. Push to the branch - `git push origin my-new-feature`
 7. Create new Pull Request
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java?ref=badge_large)
