@@ -2,8 +2,11 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java?ref=badge_shield)
+![](https://img.shields.io/badge/Stability-Experimental-red.svg)
 
 Lightweight Java client library for accessing Packet REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
+
+This repository is [Experimental](https://github.com/packethost/standards/blob/master/experimental-statement.md) meaning that it's based on untested ideas or techniques and not yet established or finalized or involves a radically new and innovative style! This means that support is best effort (at best!) and we strongly encourage you to NOT use this in production.
 
 # Getting Started
 
