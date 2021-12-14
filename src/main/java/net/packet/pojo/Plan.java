@@ -12,7 +12,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Packet service plan details.
+ * Equinix Metal service plan details.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

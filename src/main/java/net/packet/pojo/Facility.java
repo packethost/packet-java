@@ -10,7 +10,7 @@ package net.packet.pojo;
 import java.util.List;
 
 /**
- * Packet data center information, where you can provision Packet devices.
+ * Equinix Metal data center information, where you can provision Equinix Metal devices.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

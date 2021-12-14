@@ -35,10 +35,10 @@ import net.packet.pojo.User;
 import net.packet.pojo.Users;
 
 /**
- * Packet API client interface of REST APIs.
+ * Equinix Metal API client interface of REST APIs.
  * 
  * <p>
- * Lightweight API client library for accessing Packet REST APIs with project based (JVM hosted
+ * Lightweight API client library for accessing Equinix Metal REST APIs with project based (JVM hosted
  * languages) on Java, Groovy, Scala, Clojure, etc.
  * </p>
  * 
@@ -52,7 +52,7 @@ public interface Packet {
   // ___________________________________
 
   /**
-   * Provides a listing of available datacenters where you can provision Packet devices.
+   * Provides a listing of available datacenters where you can provision Equinix Metal devices.
    * 
    * @param pageNo for pagination
    * @param perPage no. of items per page (optional, can pass null)
@@ -225,7 +225,7 @@ public interface Packet {
   Device updateDevice(Device device) throws PacketException;
 
   /**
-   * To delete a device from Packet project and deprovisions it in packet datacenter.
+   * To delete a device from Equinix Metal project and deprovisions it in packet datacenter.
    * 
    * @param deviceId a packet device id
    * @return {@link Boolean}

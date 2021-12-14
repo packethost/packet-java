@@ -32,7 +32,7 @@ import net.packet.pojo.User;
 import net.packet.pojo.Users;
 
 /**
- * Enumeration of Packet REST Endpoint(s) information.
+ * Enumeration of Equinix Metal REST Endpoint(s) information.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

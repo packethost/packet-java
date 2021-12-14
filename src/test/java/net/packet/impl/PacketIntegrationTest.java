@@ -56,7 +56,7 @@ import net.packet.pojo.User;
 import net.packet.pojo.Users;
 
 /**
- * Packet API client Integration test.
+ * Equinix Metal API client Integration test.
  * 
  * <p>
  * <strong>Note:</strong> <i>Please update private variable values before using executing

@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Enumeration of Packet Resource Status.
+ * Enumeration of Equinix Metal Resource Status.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

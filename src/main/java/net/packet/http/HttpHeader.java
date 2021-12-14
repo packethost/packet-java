@@ -8,10 +8,10 @@
 package net.packet.http;
 
 /**
- * Packet API client HTTP Header Names.
+ * Equinix Metal API client HTTP Header Names.
  * 
  * <p>
- * It has only header(s) used by Packet API client.
+ * It has only header(s) used by Equinix Metal API client.
  * </p>
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
