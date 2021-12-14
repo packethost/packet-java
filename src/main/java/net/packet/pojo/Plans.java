@@ -10,7 +10,7 @@ package net.packet.pojo;
 import java.util.List;
 
 /**
- * Plans represents the collections of Packet Plan.
+ * Plans represents the collections of Equinix Metal Plan.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

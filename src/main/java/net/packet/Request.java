@@ -20,7 +20,7 @@ import net.packet.http.HttpMethod;
 import net.packet.http.QueryParam;
 
 /**
- * Request is used to compose Packet REST API request values.
+ * Request is used to compose Equinix Metal REST API request values.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

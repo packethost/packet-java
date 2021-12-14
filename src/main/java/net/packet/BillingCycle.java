@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Enumeration of Packet billing cycles.
+ * Enumeration of Equinix Metal billing cycles.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

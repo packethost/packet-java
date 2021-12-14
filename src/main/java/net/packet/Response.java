@@ -10,7 +10,7 @@ package net.packet;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Response holds Packet REST API response values.
+ * Response holds Equinix Metal REST API response values.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

@@ -1,16 +1,16 @@
-# Packet API Java Client
+# Equinix Metal API Java Client
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java?ref=badge_shield)
 ![](https://img.shields.io/badge/Stability-Experimental-red.svg)
 
-Lightweight Java client library for accessing Packet REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
+Lightweight Java client library for accessing Equinix Metal REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
 This repository is [Experimental](https://github.com/packethost/standards/blob/master/experimental-statement.md) meaning that it's based on untested ideas or techniques and not yet established or finalized or involves a radically new and innovative style! This means that support is best effort (at best!) and we strongly encourage you to NOT use this in production.
 
 # Getting Started
 
-Packet API Java Client is available in [Maven Central Repo](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22net.packet%22%20AND%20a%3A%22java-client%22).
+Equinix Metal API Java Client is available in [Maven Central Repo](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22net.packet%22%20AND%20a%3A%22java-client%22).
 
 **Maven dependency**
 ```xml
@@ -39,10 +39,10 @@ libraryDependencies += "net.packet" % "java-client" % "1.0.0"
 
 # Getting Help
 
-* API Javadoc: [Packet API Java Client](https://packethost.github.io/packet-java/)
+* API Javadoc: [Equinix Metal API Java Client](https://packethost.github.io/packet-java/)
 * Example usage: have a look at [PacketIntegrationTest](src/test/java/net/packet/impl/PacketIntegrationTest.java)
 
-# How to create Packet API Java Client?
+# How to create Equinix Metal API Java Client?
 
 Simply you will have to call constructors!
 
@@ -59,7 +59,7 @@ Then, call appropriate methods as per your need!
 
 # Reporting Issues
 
-Packet API Java Client uses [GitHub’s integrated issue tracking system](https://github.com/packethost/packet-java/issues) to record bugs and feature requests. If you need to paste code, or include a stack trace use Markdown <code>```</code> escapes before and after your text.
+Equinix Metal API Java Client uses [GitHub’s integrated issue tracking system](https://github.com/packethost/packet-java/issues) to record bugs and feature requests. If you need to paste code, or include a stack trace use Markdown <code>```</code> escapes before and after your text.
 
 
 # Client Library Changelog

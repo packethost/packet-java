@@ -8,7 +8,7 @@
 package net.packet.http;
 
 /**
- * Packet API client Query parameter names.
+ * Equinix Metal API client Query parameter names.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0

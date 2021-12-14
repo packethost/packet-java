@@ -81,7 +81,7 @@ import net.packet.serializer.DeviceSerializer;
 import net.packet.serializer.ProjectSerializer;
 
 /**
- * Packet API client implementation.
+ * Equinix Metal API client implementation.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
@@ -91,13 +91,13 @@ public final class PacketClient implements Packet, Constants {
   private static final Logger log = LoggerFactory.getLogger(PacketClient.class);
 
   /**
-   * Packet API version
+   * Equinix Metal API version
    */
   private String version;
 
   /**
-   * Packet <code>X-Auth-Token</code> value you get from
-   * <code>https://app.packet.net/portal#/api-keys</code>
+   * Equinix Metal <code>X-Auth-Token</code> value you get from
+   * <code>https://console.equinix.com/users/me/api-keys</code>
    */
   private String authToken;
 
@@ -112,7 +112,7 @@ public final class PacketClient implements Packet, Constants {
   private Gson serializer;
 
   /**
-   * Packet API common headers
+   * Equinix Metal API common headers
    */
   private Header[] commonHeaders;
 
@@ -132,10 +132,10 @@ public final class PacketClient implements Packet, Constants {
   private CloseableHttpClient httpClient;
 
   /**
-   * Constructor for creating Packet API Client Instance.
+   * Constructor for creating Equinix Metal API Client Instance.
    * 
    * @param authToken authentication tokens from
-   *        <a href="https://app.packet.net/portal#/api-keys">Packet Portal</a>
+   *        <a href="https://console.equinix.com/users/me/api-keys">Equinix Metal Console</a>
    * @param version API version number
    */
   public PacketClient(String authToken, String version) {
@@ -143,16 +143,16 @@ public final class PacketClient implements Packet, Constants {
   }
 
   /**
-   * Constructor for creating Packet API Client Instance with HTTP Client.
+   * Constructor for creating Equinix Metal API Client Instance with HTTP Client.
    * 
    * @param authToken authentication tokens from
-   *        <a href="https://app.packet.net/portal#/api-keys">Packet Portal</a>
+   *        <a href="https://console.equinix.com/users/me/api-keys">Equinix Metal Console</a>
    * @param version API version number
    * @param httpClient Apache HTTP Client instance
    */
   public PacketClient(String authToken, String version, CloseableHttpClient httpClient) {
     if (!"1".equalsIgnoreCase(version)) {
-      throw new IllegalArgumentException("Incorrect Packet API version number");
+      throw new IllegalArgumentException("Incorrect Equinix Metal API version number");
     }
 
     this.authToken = authToken;
@@ -922,7 +922,7 @@ public final class PacketClient implements Packet, Constants {
         response = new Response(req.getEndpoint(), data, true);
       }
 
-      log.debug("Packet Response: {}", response);
+      log.debug("Equinix Metal Response: {}", response);
     } catch (IOException e) {
       throw new HttpErrorException(e.getMessage(), e);
     } finally {
@@ -1031,7 +1031,7 @@ public final class PacketClient implements Packet, Constants {
         Error error = deserializer.fromJson(responseString, Error.class);
         errorMsg = error.getAllErrors();
       } catch (JsonSyntaxException e) {
-        errorMsg = "Packet server are on maintenance. Wait for official messages from Packet";
+        errorMsg = "Equinix Metal server are on maintenance. Wait for official messages from Packet";
       }
       log.debug(String.format("\nHTTP Status Code: %s\nError Message: %s", statusCode, errorMsg));
       throw new PacketException(errorMsg, null, statusCode);
@@ -1068,7 +1068,7 @@ public final class PacketClient implements Packet, Constants {
       this.httpClient = HttpClients.createDefault();
     }
 
-    log.info("Packet API client have been initialized [version: {}, host: {}]", version, HOSTNAME);
+    log.info("Equinix Metal API client have been initialized [version: {}, host: {}]", version, HOSTNAME);
   }
 
 }

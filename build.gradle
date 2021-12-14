@@ -87,9 +87,9 @@ uploadArchives {
       }
 
       pom.project {
-        name 'Packet API Java Client'
+        name 'Equinix Metal API Java Client'
         packaging 'jar'
-        description 'Lightweight Java Client library for accessing Packet REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.'
+        description 'Lightweight Java Client library for accessing Equinix Metal REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.'
         url 'https://github.com/packethost/packet-java'
 
         scm {

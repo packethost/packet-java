@@ -18,7 +18,7 @@ import net.packet.BillingCycle;
 import net.packet.State;
 
 /**
- * Devices are the heart of the Packet ecosystem. It represents the cloud system.
+ * Devices are the heart of the Equinix Metal ecosystem. It represents the cloud system.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
@@ -436,7 +436,7 @@ public class Device extends AbstractBase {
   }
 
   /**
-   * Packet provides root password for each server you provision for 24 hours. After 24 hours it
+   * Equinix Metal provides root password for each server you provision for 24 hours. After 24 hours it
    * will be permanently deleted on packet end, you will not be able to retrieve it.
    * 
    * @return the rootPassword

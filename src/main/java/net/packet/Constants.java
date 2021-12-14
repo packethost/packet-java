@@ -8,7 +8,7 @@
 package net.packet;
 
 /**
- * Packet API client constants.
+ * Equinix Metal API client constants.
  * 
  * @author Jeevanandam M. (https://github.com/jeevatkm)
  * @since v1.0.0
