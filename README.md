@@ -1,13 +1,14 @@
 # Equinix Metal API Java Client
 
-> **DEPRECATED**
-> This repository is [Deprecated](https://github.com/packethost/standards/blob/master/deprecated-statement.md) meaning that this software is only supported > or maintained by Equinix Metal and its community in a case-by-case basis.
-> 
-> Please consider using <https://github.com/equinix-labs/metal-java> instead.
+> **END OF LIFE**
+> This repository is [End of Life](https://github.com/equinix-labs/equinix-labs/blob/main/uniform-standards.md#end-of-life-tier) meaning that 
+> this software is no longer supported nor maintained by Equinix Metal or its community.
+>
+> Please use <https://github.com/equinix-labs/metal-java> instead.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpackethost%2Fpacket-java?ref=badge_shield)
-![](https://img.shields.io/badge/Stability-Deprecated-red.svg)
+[![End Of Life](https://img.shields.io/badge/Stability-EndOfLife-black.svg)](https://github.com/equinix-labs/equinix-labs/blob/main/uniform-standards.md#end-of-life-tier)
 
 Lightweight Java client library for accessing Equinix Metal REST APIs with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
